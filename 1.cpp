@@ -8,18 +8,19 @@ struct Point {
     bool operator == (Point const & p) const {
         return x == p.x && y == p.y;
     }
-    int x;
-    int y;
+    long long int x;
+    long long int y;
 };
 
 struct Polygon {
     std::vector <Point> verticles;
 
-    int coeff(Point const & from, Point const & to, Point const & p) const {
-        return (std::max(to.x, from.x) - p.x) * abs(to.y - from.y) - abs((to.x - from.x) * (std::max(to.y, from.y) - p.y));
+    long long int coeff(Point const & from, Point const & to, Point const & p) const {
+        // std::cout << (std::max(to.x, from.x) - p.x) << " " << abs(to.y - from.y) << " " << abs((to.x - from.x)) << " " <<  (std::max(to.y, from.y) - p.y) << std::endl;
+        return (std::max(to.x, from.x) - p.x) * abs(to.y - from.y) - abs(to.x - from.x) * (std::max(to.y, from.y) - p.y);
     }
 
-    bool was_under(int y, int ind) const {
+    bool was_under(long long int y, int ind) const {
         int before = ind;
         int size = (int)verticles.size();
         while (verticles[before].y == y) {
@@ -48,7 +49,7 @@ struct Polygon {
                 }
                 continue;
             } else if (((from.y - p.y) * (to.y - p.y)) <= 0) {
-                int c = coeff(from, to, p);
+                long long int c = coeff(from, to, p);
                 if (c > 0) {
                     ++intersections;
                 } else if (c == 0) {
@@ -89,12 +90,15 @@ int main() {
     }
 
     /*
-    Polygon poly;
     poly.verticles = {Point(-2, -2), Point(4, 2), Point(5, 8), Point(6, 5), Point(7, 9), Point(3, 9)};
     std::vector <Point> points = {Point(5, 5), Point(-3, 5), Point(0, 8), Point(4, 6), Point(0, 9), Point(5, 9), Point(1, 0), Point(4, 5)};
     poly.verticles = {Point(0, 0), Point(2, 0), Point(2, 1), Point(4, 1), Point(4, 0), Point(6, 0), Point(6, -2), Point(8, -2), Point(8, 0), Point(10, 0), Point(10, 2)
 , Point(0, 2)};
     std::vector <Point> points = {Point(3, 0), Point(5, 0), Point(7, 0), Point(12, 0)};
+
+    Polygon poly;
+    poly.verticles = {Point(-99999, -99999), Point(2, -2), Point(99999, 99999)};
+    std::vector <Point> points = {Point(1, -1), Point(3, -1)};
     */
 
     for (int i = 0; i != points.size(); ++i) {
