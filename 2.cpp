@@ -13,7 +13,7 @@ enum turn_t {
 };
 
 turn_t get_turn(Point a, Point b, Point c) {
-    long int det = ((long int)(c.y - a.y)) * (b.x - a.x) - ((long int)(c.x - a.x)) * (b.y - a.y);
+    std::int64_t det = ((std::int64_t)(c.y - a.y)) * (b.x - a.x) - ((std::int64_t)(c.x - a.x)) * (b.y - a.y);
     if (det < 0) {
         return RIGHT;
     } else if (det == 0) {
@@ -136,8 +136,8 @@ struct Polygon {
 
 Point parse_point(std::string const & str) {
     size_t comma = str.find(',');
-    int x = std::atoi(str.substr(1, comma).c_str());
-    int y = std::atoi(str.substr(comma + 1).c_str());
+    int x = std::atoi(&(str.c_str()[1]));
+    int y = std::atoi(&(str.c_str()[comma + 1]));
     return Point(x, y);
 }
 
